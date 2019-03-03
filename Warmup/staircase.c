@@ -6,7 +6,7 @@ void staircase(int n)
     {
         int spaces = n - (x + 1);
         int stars = x + 1;
-        while (spaces > 0)
+        while (spaces)
         {
             printf(" ");
             spaces--;
