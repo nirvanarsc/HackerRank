@@ -26,10 +26,10 @@ int main() {
   grades[3] = 33;
   int *result_count = malloc(grades_count * sizeof(int));
 
-  int *asd = gradingStudents(grades_count, grades, result_count);
+  int *res = gradingStudents(grades_count, grades, result_count);
 
   for (int i = 0; i < grades_count; i++) {
-    printf("%d ", asd[i]);
+    printf("%d ", res[i]);
   }
   printf("\n");
 }
