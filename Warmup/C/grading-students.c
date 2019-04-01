@@ -19,13 +19,8 @@ int *gradingStudents(int grades_count, int *grades, int *result_count) {
 
 int main() {
   int grades_count = 4;
-  int *grades = malloc(grades_count * sizeof(int));
-  grades[0] = 73;
-  grades[1] = 67;
-  grades[2] = 38;
-  grades[3] = 33;
+  int grades[] = {73, 67, 38, 33};
   int *result_count = malloc(grades_count * sizeof(int));
-
   int *res = gradingStudents(grades_count, grades, result_count);
 
   for (int i = 0; i < grades_count; i++) {
