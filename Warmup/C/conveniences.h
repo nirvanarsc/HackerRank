@@ -21,3 +21,11 @@ int arrayApply(int* arr, int arr_length, int (*f)(int, int)) {
   }
   return res;
 }
+
+int sumElements(int arr_length, int* arr) {
+  int sum = 0;
+  for (int i = 0; i < arr_length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}

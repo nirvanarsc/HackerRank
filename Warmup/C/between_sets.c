@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "convenient.h"
+#include "conveniences.h"
 
 int countMultiples(int a, int b) {
   int res = 0;
