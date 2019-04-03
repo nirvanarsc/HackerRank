@@ -29,3 +29,5 @@ int sumElements(int arr_length, int* arr) {
   }
   return sum;
 }
+
+void simplePrint(int d) { printf("%d\n", d); }
