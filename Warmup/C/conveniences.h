@@ -31,3 +31,14 @@ int sumElements(int arr_length, int* arr) {
 }
 
 void simplePrint(int d) { printf("%d\n", d); }
+
+void simplePrintArray(int* arr, int arr_length) {
+  for (int i = 0; i < arr_length; i++) {
+    printf("%d ", arr[i]);
+  }
+  printf("\n");
+}
+
+// Allocating values to array after malloc/calloc
+// int* arr = calloc(5, sizeof(int));
+// arr = (int[]){1, 2, 3, 4, 5, 6};

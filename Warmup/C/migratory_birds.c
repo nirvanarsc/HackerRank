@@ -4,19 +4,23 @@
 // Complete the migratoryBirds function below.
 int migratoryBirds(int arr_count, int* arr) {
   int* map = calloc(5, sizeof(int));
+  int max_index = 0;
 
   for (int i = 0; i < arr_count; i++) {
-    simplePrint(arr[i]);
-    map[arr[i]]++;
+    map[arr[i] - 1]++;
   }
 
-  printf("%d %d %d %d %d\n", arr[0], arr[1], arr[2], arr[3], arr[4]);
+  for (int j = 0; j < 5; j++) {
+    if (map[j] > map[max_index]) {
+      max_index = j;
+    }
+  }
 
-  return 0;
+  return max_index + 1;
 }
 
 int main() {
-  int zzz[] = {1, 2, 3, 4, 5, 4, 3, 2, 1, 3, 4};
-  int length = sizeof(zzz) / sizeof(zzz[0]);
-  simplePrint(migratoryBirds(length, zzz));
+  int birds[] = {1, 2, 3, 4, 5, 2, 1, 3, 4, 5, 5};
+  int length = sizeof(birds) / sizeof(birds[0]);
+  simplePrint(migratoryBirds(length, birds));
 }
