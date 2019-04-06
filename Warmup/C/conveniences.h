@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int gcd(int a, int b) {
   while (b != 0) {
@@ -40,6 +40,13 @@ void simplePrintArray(int* arr, int arr_length) {
   printf("\n");
 }
 
-// Allocating values to array after malloc/calloc
-// int* arr = calloc(5, sizeof(int));
-// arr = (int[]){1, 2, 3, 4, 5, 6};
+int* flatten(int s_rows, int s_columns, int** s) {
+  int* result = (int*)malloc(s_rows * s_columns * sizeof(int));
+  int currIndex = 0;
+  for (int i = 0; i < s_rows; i++) {
+    for (int j = 0; j < s_columns; j++) {
+      result[currIndex++] = s[i][j];
+    }
+  }
+  return result;
+}
