@@ -1,91 +1,75 @@
 #include "conveniences.h"
 
-int countUniques(int* arr, int arr_length) {
-  if (arr_length <= 1) {
-    return arr_length;
-  }
-  int counter = 1;
-  int prev = arr[0];
-  for (int i = 1; i < arr_length; i++) {
-    if (arr[i] == prev) {
-      continue;
-    }
-    counter++;
-    prev = arr[i];
-  }
-
-  return counter;
-}
-
-int* climbingLeaderboard(int scores_count, int* scores, int alice_count,
-                         int* alice) {
-  int total = countUniques(scores, scores_count);
-  int last = scores_count - 1;
-  int* res = calloc(alice_count, sizeof(int));
-  //*result_count = alice_count;
+int *climbingLeaderboard(int scores_count, int *scores, int alice_count,
+                         int *alice) {
+  int new_length;
+  scores = removeDuplicates(scores, scores_count, &new_length);
+  int *res = malloc(alice_count * sizeof(int));
 
   for (int i = 0; i < alice_count; i++) {
-    if (alice[i] <= scores[last]) {
-      res[i] = total + 1;
+    if (alice[i] >= scores[0]) {
+      res[i] = 1;
+      continue;
+    }
+    if (alice[i] < scores[new_length - 1]) {
+      res[i] = new_length + 1;
+      continue;
+    }
+    if (alice[i] == scores[new_length - 1]) {
+      res[i] = new_length;
       continue;
     }
     if (alice[i] == alice[i - 1]) {
       res[i] = res[i - 1];
       continue;
     }
-    if (alice[i] >= scores[0]) {
-      res[i] = 1;
-      continue;
-    }
 
-    int index = 0;
-    // int prevIndex = i > 0 ? res[i - 1] - 1 : last;
-
-    // if (prevIndex > last) {
-    //   prevIndex = last;
-    // }
-    int prevIndex = last;
-    int prev = scores[prevIndex];
-    printf("PREV INDEX %d\n", prevIndex);
-    for (int j = prevIndex; j >= 1; j--) {
-      printf("CHECKING %d and %d with previous %d\n", alice[i], scores[j],
-             prev);
-      if (scores[j] == prev) {
-        index++;
-        continue;
-      }
+    int index = i == 0 ? new_length - 1 : res[i - 1] - 1;
+    for (int j = index; j >= 0; j--) {
       if (alice[i] == scores[j]) {
-        int z = j;
-        while (z - 1 != 0 && scores[z] == scores[z - 1]) {
-          z--;
-          index++;
-        }
-        res[i] = total - index + 1;
+        res[i] = j + 1;
         break;
       }
       if (alice[i] < scores[j]) {
-        res[i] = total - index + 1;
+        res[i] = j + 2;
         break;
       }
-      index++;
-      prev = scores[j];
     }
   }
 
   return res;
 }
 
-// 10 10 10 7 7 6 4 4 2                 5
-// 1 1 1 3 5 7 10 20                6 6 6 5 4 2 1 1
-
 int main() {
-  int scores[] = {10, 10, 10, 7, 7, 6, 4, 4, 2};
+  int scores[] = {
+      997, 981, 957, 933, 930, 927, 926, 920, 916, 896, 887, 874, 863, 863, 858,
+      847, 815, 809, 803, 794, 789, 785, 783, 778, 764, 755, 751, 740, 737, 730,
+      691, 677, 652, 650, 587, 585, 583, 568, 546, 541, 540, 538, 531, 527, 506,
+      493, 457, 435, 430, 427, 422, 422, 414, 404, 400, 394, 387, 384, 374, 371,
+      369, 369, 368, 365, 363, 337, 336, 328, 325, 316, 314, 306, 282, 277, 230,
+      227, 212, 199, 179, 173, 171, 168, 136, 125, 124, 95,  92,  88,  85,  70,
+      68,  61,  60,  59,  44,  43,  28,  23,  13,  12};
   int scores_length = sizeof(scores) / sizeof(scores[0]);
-  int alice[] = {1, 1, 1, 3, 5, 7, 10, 20};
+
+  int alice[] = {
+      12,  20,  30,  32,  35,  37,  63,  72,  83,  85,  96,  98,  98,  118, 122,
+      125, 129, 132, 140, 144, 150, 164, 184, 191, 194, 198, 200, 220, 228, 229,
+      229, 236, 238, 246, 259, 271, 276, 281, 283, 287, 300, 302, 306, 307, 312,
+      318, 321, 325, 341, 341, 341, 344, 349, 351, 354, 356, 366, 369, 370, 379,
+      380, 380, 396, 405, 408, 417, 423, 429, 433, 435, 438, 441, 442, 444, 445,
+      445, 452, 453, 465, 466, 467, 468, 469, 471, 475, 482, 489, 491, 492, 493,
+      498, 500, 501, 504, 506, 508, 523, 529, 530, 539, 543, 551, 552, 556, 568,
+      569, 571, 587, 591, 601, 602, 606, 607, 612, 614, 619, 620, 623, 625, 625,
+      627, 638, 645, 653, 661, 662, 669, 670, 676, 684, 689, 690, 709, 709, 710,
+      716, 724, 726, 730, 731, 733, 737, 744, 744, 747, 757, 764, 765, 765, 772,
+      773, 774, 777, 787, 794, 796, 797, 802, 805, 811, 814, 819, 819, 829, 830,
+      841, 842, 847, 857, 857, 859, 860, 866, 872, 879, 882, 895, 900, 900, 903,
+      905, 915, 918, 918, 922, 925, 927, 928, 929, 931, 934, 937, 955, 960, 966,
+      974, 982, 988, 996, 996};
   int alice_length = sizeof(alice) / sizeof(alice[0]);
 
+  int *res = climbingLeaderboard(scores_length, scores, alice_length, alice);
+
   simplePrint(countUniques(scores, scores_length));
-  simplePrintArray(
-      climbingLeaderboard(scores_length, scores, alice_length, alice),
-      alice_length);
+  simplePrintArray(res, alice_length);
 }

@@ -74,3 +74,20 @@ int* removeDuplicates(int* arr, int arr_length, int* new_length) {
   *new_length = res;
   return arr;
 }
+
+int countUniques(int* arr, int arr_length) {
+  if (arr_length <= 1) {
+    return arr_length;
+  }
+  int counter = 1;
+  int prev = arr[0];
+  for (int i = 1; i < arr_length; i++) {
+    if (arr[i] == prev) {
+      continue;
+    }
+    counter++;
+    prev = arr[i];
+  }
+
+  return counter;
+}
