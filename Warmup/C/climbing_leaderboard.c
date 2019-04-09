@@ -89,13 +89,12 @@ int* v2(int scores_count, int* scores, int alice_count, int* alice) {
     }
 
     int index = 0;
-    //int prevIndex = alice[i - 1] > last ? last : alice[i - 1] +1;
-    int prevIndex = last;
+    int prevIndex = alice[i - 1] > last ? last : alice[i - 1];
+    // int prevIndex = last;
     int prev = scores[prevIndex];
-
+    alice[i - 1] > last? printf("true\n"):printf("false\n");
+    simplePrint(prevIndex);
     for (int j = prevIndex; j >= 1; j--) {
-      printf("CHECKING %d and %d\n", alice[i], scores[j]);
-      printf("START PREV IS %d\n", prev);
       if (scores[j] == prev) {
         index++;
         continue;
@@ -115,7 +114,6 @@ int* v2(int scores_count, int* scores, int alice_count, int* alice) {
       }
       index++;
       prev = scores[j];
-      printf("END PREV IS %d\n", prev);
     }
   }
 
@@ -130,6 +128,4 @@ int main() {
 
   simplePrintArray(v2(scores_length, scores, alice_length, alice),
                    alice_length);
-
-  simplePrint(countUniques(scores, scores_length));
 }
