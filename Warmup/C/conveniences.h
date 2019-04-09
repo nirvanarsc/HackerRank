@@ -50,3 +50,27 @@ int* flatten(int s_rows, int s_columns, int** s) {
   }
   return result;
 }
+
+int* removeDuplicates(int* arr, int arr_length, int* new_length) {
+  int res = 0;
+  int curr = 1;
+  int i = 0;
+
+  while (i < arr_length) {
+    if (curr > arr_length) {
+      res = i;
+      for (int j = i; j < arr_length; j++) {
+        arr[j] = -1;
+      }
+      break;
+    }
+    if (arr[i] == arr[curr]) {
+      curr++;
+      continue;
+    }
+    arr[i + 1] = arr[curr];
+    i++;
+  }
+  *new_length = res;
+  return arr;
+}

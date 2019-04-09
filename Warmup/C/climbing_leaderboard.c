@@ -1,32 +1,8 @@
 #include "conveniences.h"
 
-int* removeDuplicates(int* arr, int arr_length, int* new_length) {
-  int res = 0;
-  int curr = 1;
-  int i = 0;
-
-  while (i < arr_length) {
-    if (curr > arr_length) {
-      res = i;
-      for (int j = i; j < arr_length; j++) {
-        arr[j] = -1;
-      }
-      break;
-    }
-    if (arr[i] == arr[curr]) {
-      curr++;
-      continue;
-    }
-    arr[i + 1] = arr[curr];
-    i++;
-  }
-  *new_length = res;
-  return arr;
-}
-
 int countUniques(int* arr, int arr_length) {
-  if (arr_length == 1) {
-    return 1;
+  if (arr_length <= 1) {
+    return arr_length;
   }
   int counter = 1;
   int prev = arr[0];
@@ -43,58 +19,37 @@ int countUniques(int* arr, int arr_length) {
 
 int* climbingLeaderboard(int scores_count, int* scores, int alice_count,
                          int* alice) {
-  int new_length;
-  scores = removeDuplicates(scores, scores_count, &new_length);
-  //*result_count = alice_count;
-
-  simplePrintArray(scores, new_length);
-  for (int i = 0; i < alice_count; i++) {
-    if (alice[i] >= scores[0]) {
-      alice[i] = 1;
-      continue;
-    }
-    if (alice[i] >= scores[1]) {
-      alice[i] = 2;
-      continue;
-    }
-    if (alice[i] <= scores[new_length - 1]) {
-      alice[i] = new_length + 1;
-      continue;
-    }
-    for (int j = new_length - 1; j > 1; j--) {
-      printf("CHECKING %d and %d\n", scores[j], alice[i]);
-      if (scores[j] >= alice[i]) {
-        alice[i] = j + 2;
-        break;
-      }
-    }
-  }
-
-  return alice;
-}
-// 6421
-int* v2(int scores_count, int* scores, int alice_count, int* alice) {
   int total = countUniques(scores, scores_count);
   int last = scores_count - 1;
+  int* res = calloc(alice_count, sizeof(int));
   //*result_count = alice_count;
 
   for (int i = 0; i < alice_count; i++) {
-    if (alice[i] >= scores[0]) {
-      alice[i] = 1;
+    if (alice[i] <= scores[last]) {
+      res[i] = total + 1;
       continue;
     }
-    if (alice[i] <= scores[last]) {
-      alice[i] = total + 1;
+    if (alice[i] == alice[i - 1]) {
+      res[i] = res[i - 1];
+      continue;
+    }
+    if (alice[i] >= scores[0]) {
+      res[i] = 1;
       continue;
     }
 
     int index = 0;
-    int prevIndex = alice[i - 1] > last ? last : alice[i - 1];
-    // int prevIndex = last;
+    // int prevIndex = i > 0 ? res[i - 1] - 1 : last;
+
+    // if (prevIndex > last) {
+    //   prevIndex = last;
+    // }
+    int prevIndex = last;
     int prev = scores[prevIndex];
-    alice[i - 1] > last? printf("true\n"):printf("false\n");
-    simplePrint(prevIndex);
+    printf("PREV INDEX %d\n", prevIndex);
     for (int j = prevIndex; j >= 1; j--) {
+      printf("CHECKING %d and %d with previous %d\n", alice[i], scores[j],
+             prev);
       if (scores[j] == prev) {
         index++;
         continue;
@@ -105,11 +60,11 @@ int* v2(int scores_count, int* scores, int alice_count, int* alice) {
           z--;
           index++;
         }
-        alice[i] = total - index + 1;
+        res[i] = total - index + 1;
         break;
       }
       if (alice[i] < scores[j]) {
-        alice[i] = total - index + 1;
+        res[i] = total - index + 1;
         break;
       }
       index++;
@@ -117,15 +72,20 @@ int* v2(int scores_count, int* scores, int alice_count, int* alice) {
     }
   }
 
-  return alice;
+  return res;
 }
 
+// 10 10 10 7 7 6 4 4 2                 5
+// 1 1 1 3 5 7 10 20                6 6 6 5 4 2 1 1
+
 int main() {
-  int scores[] = {100, 90, 90, 80, 75, 60};
+  int scores[] = {10, 10, 10, 7, 7, 6, 4, 4, 2};
   int scores_length = sizeof(scores) / sizeof(scores[0]);
-  int alice[] = {50, 65, 77, 90, 102};
+  int alice[] = {1, 1, 1, 3, 5, 7, 10, 20};
   int alice_length = sizeof(alice) / sizeof(alice[0]);
 
-  simplePrintArray(v2(scores_length, scores, alice_length, alice),
-                   alice_length);
+  simplePrint(countUniques(scores, scores_length));
+  simplePrintArray(
+      climbingLeaderboard(scores_length, scores, alice_length, alice),
+      alice_length);
 }
