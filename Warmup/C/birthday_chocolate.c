@@ -7,7 +7,7 @@ int birthday(int s_count, int* s, int d, int m) {
   }
 
   if (m == s_count) {
-    if (sumElements(s_count, s) == d) {
+    if (sum(s, s_count) == d) {
       return 1;
     }
     return 0;
