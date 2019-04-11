@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -110,4 +111,24 @@ int countUniques(int* arr, int arr_length) {
   }
 
   return counter;
+}
+
+int* toArray(int number, int* arr_length) {
+  int n = log10(number) + 1;
+  *arr_length = n;
+  int* numberArray = calloc(n, sizeof(int));
+  for (int i = 0; i < n; ++i, number /= 10) {
+    numberArray[i] = number % 10;
+  }
+  return numberArray;
+}
+
+int* toReverseArray(int number, int* arr_length) {
+  int n = log10(number) + 1;
+  *arr_length = n;
+  int* numberArray = calloc(n, sizeof(int));
+  for (int i = n - 1; i >= 0; --i, number /= 10) {
+    numberArray[i] = number % 10;
+  }
+  return numberArray;
 }
