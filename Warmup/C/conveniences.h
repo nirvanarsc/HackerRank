@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,8 +34,8 @@ int sum(int* arr, int arr_length) {
 }
 
 int min(int* arr, int arr_length) {
-  int min = arr[0];
-  for (int i = 1; i < arr_length; i++) {
+  int min = INT_MAX;
+  for (int i = 0; i < arr_length; i++) {
     if (min > arr[i]) {
       min = arr[i];
     }
@@ -43,8 +44,8 @@ int min(int* arr, int arr_length) {
 }
 
 int max(int* arr, int arr_length) {
-  int max = arr[0];
-  for (int i = 1; i < arr_length; i++) {
+  int max = INT_MIN;
+  for (int i = 0; i < arr_length; i++) {
     if (max < arr[i]) {
       max = arr[i];
     }
