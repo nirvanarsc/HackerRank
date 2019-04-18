@@ -1,14 +1,11 @@
 #include <string.h>
 #include "conveniences.h"
 
-char* readline();
-
-// helloworld
-// helloboy
 char* appendAndDelete(char* s, char* t, int k) {
+  char* yes = "Yes";
+  char* no = "No";
   int s_length = strlen(s);
   int t_length = strlen(t);
-  int min_actions;
   int max_common = s_length > t_length ? t_length : s_length;
   int i = 0;
 
@@ -18,15 +15,22 @@ char* appendAndDelete(char* s, char* t, int k) {
     }
     i++;
   }
-  
-  
-  
 
+  int diff = (s_length - i) + (t_length - i);
 
-  char* yes = "Yes";
-  char* no = "No";
-
+  if (k < diff) {
+    return no;
+  } else if (diff % 2 == k % 2) {
+    return yes;
+  } else if (s_length + t_length - k < 0) {
+    return yes;
+  }
   return no;
 }
 
-int main() {}
+int main() {
+  char* s = "abcdef";
+  char* t = "fedcba";
+  printf("%s\n", appendAndDelete(s, t, 11));
+  printf("%s\n", appendAndDelete(s, t, 12));
+}
