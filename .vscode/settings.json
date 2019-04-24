@@ -2,6 +2,7 @@
     "files.associations": {
         "*.py": "python",
         "stdlib.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "stdio.h": "c"
     }
 }

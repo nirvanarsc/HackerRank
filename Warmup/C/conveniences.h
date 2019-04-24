@@ -114,8 +114,10 @@ int countUniques(int* arr, int arr_length) {
   return counter;
 }
 
+int getIntLength(int number) { return log10(number) + 1; }
+
 int* toArray(int number, int* arr_length) {
-  int n = log10(number) + 1;
+  int n = getIntLength(number);
   *arr_length = n;
   int* numberArray = calloc(n, sizeof(int));
   for (int i = 0; i < n; ++i, number /= 10) {
@@ -125,7 +127,7 @@ int* toArray(int number, int* arr_length) {
 }
 
 int* toReverseArray(int number, int* arr_length) {
-  int n = log10(number) + 1;
+  int n = getIntLength(number);
   *arr_length = n;
   int* numberArray = calloc(n, sizeof(int));
   for (int i = n - 1; i >= 0; --i, number /= 10) {
