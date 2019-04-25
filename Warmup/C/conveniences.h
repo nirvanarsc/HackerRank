@@ -116,6 +116,8 @@ int countUniques(int* arr, int arr_length) {
 
 int getIntLength(int number) { return log10(number) + 1; }
 
+int getLongLength(long number) { return log10(number) + 1; }
+
 int* toArray(int number, int* arr_length) {
   int n = getIntLength(number);
   *arr_length = n;
