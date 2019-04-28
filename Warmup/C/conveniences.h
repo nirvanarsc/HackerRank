@@ -62,6 +62,12 @@ void simplePrintArray(int* arr, int arr_length) {
   printf("\n");
 }
 
+void simplePrint2dArray(int** arr, int rows, int cols) {
+  for (int i = 0; i < rows; i++) {
+    simplePrintArray(arr[i], cols);
+  }
+}
+
 int* flatten(int s_rows, int s_columns, int** s) {
   int* result = (int*)malloc(s_rows * s_columns * sizeof(int));
   int currIndex = 0;
@@ -142,4 +148,13 @@ int binomialCoeff(int n, int k) {
   if (k == 0 || k == n) return 1;
 
   return binomialCoeff(n - 1, k - 1) + binomialCoeff(n - 1, k);
+}
+
+void populate2dArray(int** matrix, int rows, int cols, int* arr) {
+  int index = 0;
+  for (int r = 0; r < rows; r++) {
+    for (int j = 0; j < cols; j++) {
+      matrix[r][j] = arr[index++];
+    }
+  }
 }
