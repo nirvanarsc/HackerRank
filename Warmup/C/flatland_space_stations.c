@@ -9,13 +9,17 @@ int checkMap(int* map, int map_length, int i) {
   int distance1 = 0;
   int distance2 = 0;
   while (left >= 0) {
+    if (--left == -1) {
+      distance1 = INT_MAX;
+      break;
+    }
     distance1++;
-    if (map[--left] == 1) {
+    if (map[left] == 1) {
       break;
     }
   }
   while (right < map_length) {
-    if (++right == map_length - 1) {
+    if (++right == map_length) {
       distance2 = INT_MAX;
       break;
     }
@@ -48,7 +52,7 @@ int flatlandSpaceStations(int n, int c_count, int* c) {
 }
 
 int main() {
-  int arr[] = {13, 1, 11, 10, 6};
+  int arr[] = {13, 11, 10, 6};
   int arr_length = sizeof(arr) / sizeof(arr[0]);
 
   simplePrint(flatlandSpaceStations(21, arr_length, arr));
