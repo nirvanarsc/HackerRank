@@ -158,3 +158,5 @@ void populate2dArray(int** matrix, int rows, int cols, int* arr) {
     }
   }
 }
+
+int intCeil(int x, int y) { return x / y + (x % y != 0); }

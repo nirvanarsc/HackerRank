@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include "conveniences.h"
 
 int checkMap(int* map, int map_length, int i) {
@@ -37,6 +38,9 @@ int flatlandSpaceStations(int n, int c_count, int* c) {
   int* map = calloc(n, sizeof(int));
   int* res = malloc(n * sizeof(int));
 
+  int minIdx = min(c, c_count);
+  int maxIdx = max(c, c_count);
+
   for (int i = 0; i < c_count; i++) {
     map[c[i]] = 1;
   }
@@ -48,12 +52,49 @@ int flatlandSpaceStations(int n, int c_count, int* c) {
   simplePrintArray(map, n);
   simplePrintArray(res, n);
 
+  int check = INT_MIN;
+  int temp = 0;
+  bool last = false;
+
+  for (int i = 0; i < n; i++) {
+    if (i == minIdx) {
+      if (temp > check) {
+        check = temp;
+      }
+      temp = 0;
+      continue;
+    }
+    if (i == maxIdx) {
+      temp = intCeil(temp, 2);
+      if (temp > check) {
+        check = temp;
+      }
+      last = true;
+      temp = 0;
+      continue;
+    }
+    if (map[i] == 1) {
+      temp = intCeil(temp, 2);
+      if (temp > check) {
+        check = temp;
+      }
+      temp = 0;
+      continue;
+    }
+    temp++;
+    if (last && i == n - 1) {
+      if (temp > check) {
+        check = temp;
+      }
+    }
+  }
+  simplePrint(check);
   return max(res, n);
 }
 
 int main() {
-  int arr[] = {13, 11, 10, 6};
+  int arr[] = {0};
   int arr_length = sizeof(arr) / sizeof(arr[0]);
 
-  simplePrint(flatlandSpaceStations(21, arr_length, arr));
+  simplePrint(flatlandSpaceStations(10, arr_length, arr));
 }
