@@ -16,6 +16,7 @@ There is a common bug in the C boilerplate code on [HackerRank](https://www.hack
 - [Minimum distances](https://www.hackerrank.com/challenges/minimum-distances/problem)
 - [Lisa's workbook](https://www.hackerrank.com/challenges/lisa-workbook/problem)
 - [Flatland space stations](https://www.hackerrank.com/challenges/flatland-space-stations/problem)
+- [Fair rations](https://www.hackerrank.com/challenges/fair-rations/problem)
 
 Please use `scanf()` in the boilerplate code for the `main()` method to bypass the issue. For example:
 ```c
@@ -41,4 +42,14 @@ int main() {
 
     return 0;
 }
+```
+
+For [Fair rations](https://www.hackerrank.com/challenges/fair-rations/problem) in addition to the above fix, had to do the following in `main()` since a `char*` cannot be returned from an `int` method.
+
+```c
+    if(result == INT_MIN){
+        fprintf(fptr, "NO\n");
+    } else {
+    fprintf(fptr, "%d\n", result);
+    }
 ```
