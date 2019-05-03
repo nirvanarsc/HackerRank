@@ -62,9 +62,22 @@ void simplePrintArray(int* arr, int arr_length) {
   printf("\n");
 }
 
+void simplePrintCharArray(char* arr, int arr_length) {
+  for (int i = 0; i < arr_length; i++) {
+    printf("%c ", arr[i]);
+  }
+  printf("\n");
+}
+
 void simplePrint2dArray(int** arr, int rows, int cols) {
   for (int i = 0; i < rows; i++) {
     simplePrintArray(arr[i], cols);
+  }
+}
+
+void simplePrint2dCharArray(char** arr, int rows, int cols) {
+  for (int i = 0; i < rows; i++) {
+    simplePrintCharArray(arr[i], cols);
   }
 }
 
@@ -151,6 +164,15 @@ int binomialCoeff(int n, int k) {
 }
 
 void populate2dArray(int** matrix, int rows, int cols, int* arr) {
+  int index = 0;
+  for (int r = 0; r < rows; r++) {
+    for (int j = 0; j < cols; j++) {
+      matrix[r][j] = arr[index++];
+    }
+  }
+}
+
+void populate2dCharArray(char** matrix, int rows, int cols, char* arr) {
   int index = 0;
   for (int r = 0; r < rows; r++) {
     for (int j = 0; j < cols; j++) {
