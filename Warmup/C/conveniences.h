@@ -182,3 +182,5 @@ void populate2dCharArray(char** matrix, int rows, int cols, char* arr) {
 }
 
 int intCeil(int x, int y) { return x / y + (x % y != 0); }
+
+long prevPow2(long num) { return pow(2, floor(log(num) / log(2))); }
