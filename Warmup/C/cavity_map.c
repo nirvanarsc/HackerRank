@@ -26,9 +26,9 @@ int main() {
                 '1', '8', '9', '2', '1', '2', '3', '4'};
 
   populate2dCharArray(grid, grid_rows, grid_columns, arr);
-  simplePrint2dCharArray(grid, grid_rows, grid_columns);
+  simplePrint2dCharArray(grid, grid_rows);
   printf("\n");
 
   cavityMap(grid_rows, grid, &count);
-  simplePrint2dCharArray(grid, count, count);
+  simplePrint2dCharArray(grid, count);
 }

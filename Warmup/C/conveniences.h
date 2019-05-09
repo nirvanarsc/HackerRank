@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int gcd(int a, int b) {
   while (b != 0) {
@@ -62,8 +63,8 @@ void simplePrintArray(int* arr, int arr_length) {
   printf("\n");
 }
 
-void simplePrintCharArray(char* arr, int arr_length) {
-  for (int i = 0; i < arr_length; i++) {
+void simplePrintCharArray(char* arr) {
+  for (int i = 0; i < (int)strlen(arr); i++) {
     printf("%c ", arr[i]);
   }
   printf("\n");
@@ -75,9 +76,9 @@ void simplePrint2dArray(int** arr, int rows, int cols) {
   }
 }
 
-void simplePrint2dCharArray(char** arr, int rows, int cols) {
+void simplePrint2dCharArray(char** arr, int rows) {
   for (int i = 0; i < rows; i++) {
-    simplePrintCharArray(arr[i], cols);
+    simplePrintCharArray(arr[i]);
   }
 }
 

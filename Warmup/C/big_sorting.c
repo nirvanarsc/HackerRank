@@ -37,7 +37,7 @@ char** bigSorting(int unsorted_count, char** unsorted, int* result_count) {
   for (int c = 0; c < unsorted_count / 2; c++) {
     swap(unsorted, c, unsorted_count - 1 - c);
   }
-
+  
   return unsorted;
 }
 
@@ -57,5 +57,5 @@ int main() {
 
   grid = bigSorting(5, grid, &res);
 
-  simplePrint2dCharArray(grid, 5, 5);
+  simplePrint2dCharArray(grid, 5);
 }
