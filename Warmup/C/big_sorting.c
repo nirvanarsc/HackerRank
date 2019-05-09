@@ -1,61 +1,57 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "conveniences.h"
 
-void swap(char** matrix, int i, int j) {
-  char* temp = matrix[i];
-  matrix[i] = matrix[j];
-  matrix[j] = temp;
+char** temp;
+
+void sort(char** ar, int n) {
+  if (n <= 1) return;
+  int nl, nh, i, j, k;
+  nl = n / 2;
+  nh = n - nl;
+  sort(ar, nl);
+  sort(&(ar[nl]), nh);
+
+  for (k = i = 0, j = nl; i < nl && j < n; k++) {
+    int l1 = strlen(ar[i]);
+    int l2 = strlen(ar[j]);
+    if (l1 < l2 || (l1 == l2 && strcmp(ar[i], ar[j]) < 0))
+      temp[k] = ar[i++];
+    else
+      temp[k] = ar[j++];
+  }
+
+  while (i < nl) temp[k++] = ar[i++];
+
+  while (j < n) temp[k++] = ar[j++];
+
+  for (i = 0; i < n; i++) ar[i] = temp[i];
 }
 
 char** bigSorting(int unsorted_count, char** unsorted, int* result_count) {
   *result_count = unsorted_count;
-
-  for (int i = 0; i < unsorted_count; i++) {
-    for (int j = 0; j < unsorted_count; j++) {
-      int iL = strlen(unsorted[i]);
-      int jL = strlen(unsorted[j]);
-      if (iL > jL) {
-        swap(unsorted, i, j);
-        continue;
-      }
-      if (iL == jL) {
-        int k = 0;
-        while (k < iL) {
-          if (unsorted[i][k] > unsorted[j][k]) {
-            swap(unsorted, i, j);
-            break;
-          }
-          k++;
-        }
-      }
-    }
-  }
-
-  for (int c = 0; c < unsorted_count / 2; c++) {
-    swap(unsorted, c, unsorted_count - 1 - c);
-  }
-  
+  temp = (char**)malloc(unsorted_count * sizeof(char*));
+  sort(unsorted, unsorted_count);
   return unsorted;
 }
 
 int main() {
-  char** grid = malloc(5 * sizeof(char*));
-  for (int i = 0; i < 5; i++) {
-    grid[i] = malloc(5 * sizeof(char));
+  char** grid = malloc(9 * sizeof(char*));
+  for (int i = 0; i < 9; i++) {
+    grid[i] = malloc(30 * sizeof(char));
   }
 
-  grid[0] = "123";
-  grid[1] = "222";
-  grid[2] = "100";
-  grid[3] = "200";
-  grid[4] = "22";
+  grid[0] = "8";
+  grid[1] = "1";
+  grid[2] = "2";
+  grid[3] = "100";
+  grid[4] = "12303479849857341718340192371";
+  grid[5] = "3084193741082937";
+  grid[6] = "3084193741082938";
+  grid[7] = "111";
+  grid[8] = "200";
 
   int res;
 
-  grid = bigSorting(5, grid, &res);
+  grid = bigSorting(9, grid, &res);
 
-  simplePrint2dCharArray(grid, 5);
+  simplePrint2dCharArray(grid, 9);
 }
