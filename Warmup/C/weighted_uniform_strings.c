@@ -2,26 +2,21 @@
 #include "conveniences.h"
 
 int *convertToMap(char *s, int l) {
-  int *map = calloc(1000000, sizeof(int));
-
   char prev;
-  int repeated = 2;
+  int repeated = 1;
+  int *map = calloc(10000000, sizeof(int));
+
   for (int i = 0; i < l; i++) {
     if (s[i] == prev) {
-      int x = (s[i] - '`') * repeated++;
-      if (x > 1000000) {
-        continue;
-      }
-      if (map[x] == 0) {
-        map[x] = 1;
-      }
-      continue;
+      repeated++;
+    } else {
+      prev = s[i];
+      repeated = 1;
     }
-    if (map[s[i] - '`'] == 0) {
-      map[s[i] - '`'] = 1;
+    int x = (s[i] - '`') * repeated;
+    if (map[x] == 0) {
+      map[x] = 1;
     }
-    prev = s[i];
-    repeated = 2;
   }
 
   return map;
@@ -33,17 +28,16 @@ char **weightedUniformStrings(char *s, int queries_count, int *queries,
   int l = strlen(s);
 
   char **res = malloc(queries_count * sizeof(char *));
-
   int *map = convertToMap(s, l);
 
   for (int i = 0; i < queries_count; i++) {
     if (queries[i] > queries_count * 26) {
       res[i] = "No";
     } else {
-      if (map[queries[i]] == 0) {
-        res[i] = "No";
-      } else
+      if (map[queries[i]] == 1) {
         res[i] = "Yes";
+      } else
+        res[i] = "No";
     }
   }
   return res;
