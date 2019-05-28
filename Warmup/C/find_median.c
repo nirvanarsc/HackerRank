@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int findMedian(int arr_count, int *arr) {
-  int *map = malloc(arr_count * 2 * sizeof(int));
-  int sum;
+int findMedian(int arr_count, int* arr) {
+  int* map = calloc(20001, sizeof(int));
+  int sum = 0;
   for (int i = 0; i < arr_count; i++) {
-    map[arr[i] + arr_count]++;
+    map[arr[i] + 10000]++;
   }
-  for (int i = 0; i < arr_count * 2; i++) {
+  for (int i = 0; i < 20001; i++) {
     sum += map[i];
     if (sum > arr_count / 2) {
-      return i - arr_count;
+      return i - 10000;
     }
   }
   return 0;
