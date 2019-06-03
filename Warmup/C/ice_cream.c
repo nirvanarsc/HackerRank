@@ -2,20 +2,31 @@
 #include <stdlib.h>
 
 int* icecreamParlor(int m, int arr_count, int* arr, int* result_count) {
-  int* map = calloc(100000, sizeof(int));
   *result_count = 2;
   int* res = malloc(*result_count * sizeof(int));
+  int* map = calloc(10000, sizeof(int));
 
   for (int i = 0; i < arr_count; i++) {
-    map[arr[i]] = i;
+    if (map[arr[i]] == 0) {
+      map[arr[i]] = i;
+    }
   }
+
   for (int i = 0; i < arr_count; i++) {
-    if (map[m - arr[i]] == 0) {
+    if (m - arr[i] < 0) {
       continue;
     }
-    if (map[m - arr[i]] != i) {
-      res[0] = i + 1;
-      res[1] = map[m - arr[i]] + 1;
+    if (map[m - arr[i]] != 0 && map[m - arr[i]] != i) {
+      int a = i + 1;
+      int b = map[m - arr[i]] + 1;
+
+      if (a > b) {
+        res[0] = b;
+        res[1] = a;
+      } else {
+        res[0] = a;
+        res[1] = b;
+      }
       break;
     }
   }
