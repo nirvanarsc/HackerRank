@@ -3,6 +3,7 @@
         "*.py": "python",
         "stdlib.h": "c",
         "stdbool.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "conveniences.h": "c"
     }
 }
