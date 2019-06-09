@@ -1,2 +1,6 @@
 .vscode/ipch/
 Warmup/C/*.dSYM
+HackerRank.iml
+.idea
+/Java/Java.iml
+/**/out
