@@ -4,6 +4,7 @@
         "stdlib.h": "c",
         "stdbool.h": "c",
         "stdio.h": "c",
-        "conveniences.h": "c"
+        "conveniences.h": "c",
+        "merge_sort.h": "c"
     }
 }
